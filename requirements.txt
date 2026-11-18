@@ -1,0 +1,12 @@
+# Python dependencies for MuJoCo simulation, interactive RGB-D GUI, and DiffIK/OSC scripts
+# Install with: pip install -r requirements.txt
+
+mujoco>=3.1.0
+numpy>=1.24.0
+opencv-python>=4.8.0
+Pillow>=10.0.0
+
+# Notes for Linux / WSL users:
+# - interactive_gui.py uses Tkinter (included with Conda & Windows Python).
+#   If using system Ubuntu/Debian Python, install it via:
+#     sudo apt install python3-tk

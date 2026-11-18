@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="wiserli_atal">
+
+  <!-- Top-level configurable xacro arguments -->
+  <xacro:arg name="prefix" default="" />
+  <xacro:arg name="use_gazebo" default="false" />
+  <xacro:arg name="include_gripper" default="true" />
+  <xacro:arg name="include_camera" default="true" />
+  <xacro:arg name="controllers_yaml" default="$(find wiserli_atal_description)/config/ros2_controllers.yaml" />
+
+  <!-- Include modular component macros -->
+  <xacro:include filename="$(find wiserli_atal_description)/urdf/wiserli_atal_arm.xacro" />
+  <xacro:include filename="$(find wiserli_atal_description)/urdf/robotiq_2f_85_macro.xacro" />
+  <xacro:include filename="$(find wiserli_atal_description)/urdf/wrist_rgbd_camera.xacro" />
+  <xacro:include filename="$(find wiserli_atal_description)/urdf/wiserli_atal.ros2_control.xacro" />
+  <xacro:include filename="$(find wiserli_atal_description)/urdf/wiserli_atal.gazebo.xacro" />
+
+  <!-- World reference link -->
+  <link name="world" />
+
+  <!-- 6-DOF WISERLI-ATAL-C1.1 Robot Arm -->
+  <xacro:wiserli_atal_arm prefix="$(arg prefix)" parent="world">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:wiserli_atal_arm>
+
+  <!-- Robotiq 2F-85 Parallel Gripper mounted flush on tool0 flange -->
+  <xacro:if value="$(arg include_gripper)">
+    <xacro:robotiq_2f_85 prefix="$(arg prefix)" parent="$(arg prefix)tool0">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:robotiq_2f_85>
+  </xacro:if>
+
+  <!-- Wrist-mounted RGB-D Camera (RealSense D435i form factor) on tool0 -->
+  <xacro:if value="$(arg include_camera)">
+    <xacro:wrist_rgbd_camera prefix="$(arg prefix)" parent="$(arg prefix)tool0" />
+  </xacro:if>
+
+  <!-- ros2_control hardware interfaces (GazeboSimSystem or mock_components/GenericSystem) -->
+  <xacro:wiserli_atal_ros2_control
+    name="WiserliAtalSystem"
+    prefix="$(arg prefix)"
+    use_gazebo="$(arg use_gazebo)"
+    include_gripper="$(arg include_gripper)" />
+
+  <!-- Gazebo Harmonic system plugins, contact properties & RGB-D sensor -->
+  <xacro:if value="$(arg use_gazebo)">
+    <xacro:wiserli_atal_gazebo
+      prefix="$(arg prefix)"
+      include_gripper="$(arg include_gripper)"
+      include_camera="$(arg include_camera)"
+      controllers_yaml="$(arg controllers_yaml)" />
+  </xacro:if>
+
+</robot>

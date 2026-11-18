@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Wrist-mounted RGB-D Camera (Intel RealSense D435i form factor)
+  Mounted on tool0 (+Y side, clear of Robotiq 2F-85 finger travel along +/-X),
+  tilted 15 deg inward so the optical axis intersects the gripper centerline at ~25 cm.
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <material name="camera_aluminum">
+    <color rgba="0.72 0.74 0.76 1.0" />
+  </material>
+  <material name="camera_glass">
+    <color rgba="0.06 0.06 0.08 1.0" />
+  </material>
+  <material name="camera_bracket_black">
+    <color rgba="0.12 0.12 0.14 1.0" />
+  </material>
+
+  <xacro:macro name="wrist_rgbd_camera" params="prefix:='' parent:='tool0'">
+
+    <!-- Low-profile L-bracket bridging tool0 flange side to wrist camera housing -->
+    <link name="${prefix}wrist_camera_mount_link">
+      <inertial>
+        <origin xyz="0 0.040 0.015" rpy="0 0 0" />
+        <mass value="0.035" />
+        <inertia
+          ixx="5.0e-06" ixy="0.0" ixz="0.0"
+          iyy="8.0e-06" iyz="0.0" izz="1.1e-05" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0.042 0.008" rpy="0 0 0" />
+        <geometry>
+          <box size="0.044 0.038 0.006" />
+        </geometry>
+        <material name="camera_bracket_black" />
+      </visual>
+      <visual>
+        <origin xyz="0 0.058 0.018" rpy="0 0 0" />
+        <geometry>
+          <box size="0.044 0.006 0.020" />
+        </geometry>
+        <material name="camera_bracket_black" />
+      </visual>
+      <collision>
+        <origin xyz="0 0.044 0.014" rpy="0 0 0" />
+        <geometry>
+          <box size="0.046 0.040 0.022" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}wrist_camera_mount_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${parent}" />
+      <child link="${prefix}wrist_camera_mount_link" />
+    </joint>
+
+    <!-- RGB-D Camera Body (ROS sensor frame: +X forward, +Y left, +Z up) -->
+    <!-- Positioned at (0, 0.058, 0.032) in tool0, tilted 15 deg inward toward gripper axis -->
+    <link name="${prefix}wrist_camera_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="0.072" />
+        <inertia
+          ixx="5.235e-05" ixy="0.0" ixz="0.0"
+          iyy="7.5e-06" iyz="0.0" izz="5.235e-05" />
+      </inertial>
+      <!-- Main RealSense D435i aluminum housing (depth=25mm, width=90mm, height=25mm) -->
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.025 0.090 0.025" />
+        </geometry>
+        <material name="camera_aluminum" />
+      </visual>
+      <!-- Front optical glass visor on +X face -->
+      <visual>
+        <origin xyz="0.0128 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.002 0.084 0.019" />
+        </geometry>
+        <material name="camera_glass" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.026 0.092 0.026" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}wrist_camera_joint" type="fixed">
+      <origin xyz="0.0 0.058 0.032" rpy="0.0 -1.308997 -1.570796" />
+      <parent link="${parent}" />
+      <child link="${prefix}wrist_camera_link" />
+    </joint>
+
+    <!-- Standard ROS REP-103 Optical Frame (+Z forward, +X right, +Y down) -->
+    <link name="${prefix}wrist_camera_optical_frame" />
+    <joint name="${prefix}wrist_camera_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="-1.5707963 0 -1.5707963" />
+      <parent link="${prefix}wrist_camera_link" />
+      <child link="${prefix}wrist_camera_optical_frame" />
+    </joint>
+
+  </xacro:macro>
+</robot>

@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Shared material definitions -->
+  <material name="wiserli_dark_grey">
+    <color rgba="0.23 0.23 0.23 1.0" />
+  </material>
+  <material name="wiserli_red">
+    <color rgba="0.67 0.019608 0.019608 1.0" />
+  </material>
+  <material name="wiserli_silver">
+    <color rgba="0.89412 0.89412 0.89412 1.0" />
+  </material>
+  <material name="wiserli_actuator_grey">
+    <color rgba="0.29 0.31 0.27 1.0" />
+  </material>
+
+  <xacro:macro name="wiserli_atal_arm" params="prefix:='' parent:='world' *origin">
+
+    <!-- Anchor base_link to parent (world by default) -->
+    <joint name="${prefix}base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="${prefix}base_link" />
+    </joint>
+
+    <link name="${prefix}base_link">
+      <inertial>
+        <origin xyz="6.2525E-09 -4.9893E-09 0.046727" rpy="0 0 0" />
+        <mass value="0.38202" />
+        <inertia
+          ixx="0.00086555" ixy="0.00016344" ixz="6.6877E-11"
+          iyy="0.00056436" iyz="2.546E-11" izz="0.0011619" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/base_link.STL" />
+        </geometry>
+        <material name="wiserli_dark_grey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/base_link.STL" />
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}link_1">
+      <inertial>
+        <origin xyz="-0.0013064 0.0089242 0.060012" rpy="0 0 0" />
+        <mass value="0.19521" />
+        <inertia
+          ixx="0.00039384" ixy="-2.0356E-05" ixz="7.1998E-06"
+          iyy="0.00052992" iyz="-4.9183E-05" izz="0.00030594" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/link_1.STL" />
+        </geometry>
+        <material name="wiserli_dark_grey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/link_1.STL" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}joint_1" type="revolute">
+      <origin xyz="0 0 0.0625" rpy="0 0 0" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}link_1" />
+      <axis xyz="0 0 1" />
+      <limit lower="-3.14" upper="3.14" effort="60" velocity="20" />
+      <dynamics damping="0.5" friction="0.1" />
+    </joint>
+
+    <link name="${prefix}link_2">
+      <inertial>
+        <origin xyz="0.091706 0.026058 0.11711" rpy="0 0 0" />
+        <mass value="0.76071" />
+        <inertia
+          ixx="0.004311" ixy="-0.00039587" ixz="-0.0031115"
+          iyy="0.0069557" iyz="-0.00045575" izz="0.0028965" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/link_2.STL" />
+        </geometry>
+        <material name="wiserli_red" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/link_2.STL" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}joint_2" type="revolute">
+      <origin xyz="-0.0054316 0.037105 0.090291" rpy="0 0 0" />
+      <parent link="${prefix}link_1" />
+      <child link="${prefix}link_2" />
+      <axis xyz="0.14484 -0.98945 0" />
+      <limit lower="-3.14" upper="3.14" effort="60" velocity="20" />
+      <dynamics damping="0.5" friction="0.1" />
+    </joint>
+
+    <link name="${prefix}link_3">
+      <inertial>
+        <origin xyz="0.02669 -0.029599 0.060776" rpy="0 0 0" />
+        <mass value="0.40502" />
+        <inertia
+          ixx="0.00055563" ixy="2.2508E-05" ixz="-4.2223E-05"
+          iyy="0.00067454" iyz="3.3368E-05" izz="0.00049167" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/link_3.STL" />
+        </geometry>
+        <material name="wiserli_dark_grey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/link_3.STL" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}joint_3" type="revolute">
+      <origin xyz="0.18646 0.027295 0.23343" rpy="0 0 0" />
+      <parent link="${prefix}link_2" />
+      <child link="${prefix}link_3" />
+      <axis xyz="0.14484 -0.98945 0" />
+      <limit lower="-3.14" upper="3.14" effort="60" velocity="20" />
+      <dynamics damping="0.5" friction="0.1" />
+    </joint>
+
+    <link name="${prefix}link_4">
+      <inertial>
+        <origin xyz="0.10402 0.014102 -0.036698" rpy="0 0 0" />
+        <mass value="0.27059" />
+        <inertia
+          ixx="0.00024731" ixy="-4.2796E-05" ixz="7.6458E-05"
+          iyy="0.00054783" iyz="-1.2246E-06" izz="0.00043218" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/link_4.STL" />
+        </geometry>
+        <material name="wiserli_red" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/link_4.STL" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}joint_4" type="revolute">
+      <origin xyz="0.072651 -0.027265 0.12564" rpy="0 0 0" />
+      <parent link="${prefix}link_3" />
+      <child link="${prefix}link_4" />
+      <axis xyz="0.93363 0.13667 -0.33113" />
+      <limit lower="-3.14" upper="3.14" effort="20" velocity="20" />
+      <dynamics damping="0.3" friction="0.05" />
+    </joint>
+
+    <link name="${prefix}link_5">
+      <inertial>
+        <origin xyz="0.036309 -0.010353 -0.061823" rpy="0 0 0" />
+        <mass value="0.18261" />
+        <inertia
+          ixx="0.00022011" ixy="1.7911E-05" ixz="4.5319E-05"
+          iyy="0.00022743" iyz="-2.296E-05" izz="0.00017662" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/link_5.STL" />
+        </geometry>
+        <material name="wiserli_red" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/link_5.STL" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}joint_5" type="revolute">
+      <origin xyz="0.20365 0.0072222 -0.068347" rpy="0 0 0" />
+      <parent link="${prefix}link_4" />
+      <child link="${prefix}link_5" />
+      <axis xyz="0.18145 -0.97743 0.10817" />
+      <limit lower="-1.92" upper="1.92" effort="20" velocity="20" />
+      <dynamics damping="0.3" friction="0.05" />
+    </joint>
+
+    <link name="${prefix}link_6">
+      <inertial>
+        <origin xyz="0.0059212 -9.5985E-05 -0.010799" rpy="0 0 0" />
+        <mass value="0.040761" />
+        <inertia
+          ixx="9.59E-06" ixy="-1.6499E-08" ixz="-1.8563E-06"
+          iyy="8.5724E-06" iyz="3.0092E-08" izz="1.1958E-05" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/link_6.STL" />
+        </geometry>
+        <material name="wiserli_silver" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/link_6.STL" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}joint_6" type="revolute">
+      <origin xyz="0.054582 0.022265 -0.10998" rpy="0 0 0" />
+      <parent link="${prefix}link_5" />
+      <child link="${prefix}link_6" />
+      <axis xyz="0.48075 -0.0077932 -0.87682" />
+      <limit lower="-3.14" upper="3.14" effort="20" velocity="20" />
+      <dynamics damping="0.2" friction="0.05" />
+    </joint>
+
+    <!-- Standard ROS tool0 frame on the 50mm ISO mounting flange face of link_6 -->
+    <!-- +Z points outward along joint_6 axis; +Y aligns with joint_5 pitch axis -->
+    <link name="${prefix}tool0" />
+    <joint name="${prefix}link_6_to_tool0" type="fixed">
+      <origin xyz="0.012019 -0.000195 -0.021921" rpy="3.018843 -0.487579 0.241282" />
+      <parent link="${prefix}link_6" />
+      <child link="${prefix}tool0" />
+    </joint>
+
+    <!-- Actuator housings (visuals use original high-res STLs; collisions use fitted primitives for fast physics) -->
+    <link name="${prefix}Actuator_6">
+      <inertial>
+        <origin xyz="0.036744 0.022553 -0.077449" rpy="0 0 0" />
+        <mass value="0.15173" />
+        <inertia
+          ixx="8.1709E-05" ixy="-1.5205E-07" ixz="-1.743E-05"
+          iyy="7.2176E-05" iyz="2.8756E-07" izz="0.00010395" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/Actuator_6.STL" />
+        </geometry>
+        <material name="wiserli_actuator_grey" />
+      </visual>
+      <collision>
+        <origin xyz="0.0369 0.0235 -0.0726" rpy="0 0 0" />
+        <geometry>
+          <box size="0.0724 0.0591 0.0728" />
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}Fixed_6" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${prefix}link_5" />
+      <child link="${prefix}Actuator_6" />
+    </joint>
+
+    <link name="${prefix}Actuator_5">
+      <inertial>
+        <origin xyz="0.19692 0.043487 -0.072361" rpy="0 0 0" />
+        <mass value="0.15173" />
+        <inertia
+          ixx="7.3534E-05" ixy="-7.3267E-06" ixz="8.133E-07"
+          iyy="0.00011166" iyz="-4.371E-06" izz="7.2636E-05" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/Actuator_5.STL" />
+        </geometry>
+        <material name="wiserli_actuator_grey" />
+      </visual>
+      <collision>
+        <origin xyz="0.1965 0.0478 -0.0718" rpy="0 0 0" />
+        <geometry>
+          <box size="0.0697 0.0677 0.0540" />
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}Fixed_5" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${prefix}link_4" />
+      <child link="${prefix}Actuator_5" />
+    </joint>
+
+    <link name="${prefix}Actuator_3">
+      <inertial>
+        <origin xyz="0.19197 -0.010378 0.23343" rpy="0 0 0" />
+        <mass value="0.48411" />
+        <inertia
+          ixx="0.00044677" ixy="-5.2394E-05" ixz="-7.8396E-06"
+          iyy="0.00079698" iyz="-1.1352E-06" izz="0.00041958" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/Actuator_3.STL" />
+        </geometry>
+        <material name="wiserli_actuator_grey" />
+      </visual>
+      <collision>
+        <origin xyz="0.1929 -0.0103 0.2331" rpy="0 0 0" />
+        <geometry>
+          <box size="0.1207 0.0763 0.1164" />
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}Fixed_3" type="fixed">
+      <origin xyz="-0.18645738164896 -0.0272949454265148 -0.233427999140507" rpy="0 0 0" />
+      <parent link="${prefix}link_3" />
+      <child link="${prefix}Actuator_3" />
+    </joint>
+
+    <link name="${prefix}Actuator_4">
+      <inertial>
+        <origin xyz="0.038011 -0.032336 0.13792" rpy="0 0 0" />
+        <mass value="0.15173" />
+        <inertia
+          ixx="0.0001082" ixy="5.274E-06" ixz="-1.2786E-05"
+          iyy="7.2943E-05" iyz="-1.8625E-06" izz="7.6691E-05" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/Actuator_4.STL" />
+        </geometry>
+        <material name="wiserli_actuator_grey" />
+      </visual>
+      <collision>
+        <origin xyz="0.0364 -0.0310 0.1469" rpy="0 0 0" />
+        <geometry>
+          <box size="0.0768 0.0688 0.0488" />
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}Fixed_4" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${prefix}link_3" />
+      <child link="${prefix}Actuator_4" />
+    </joint>
+
+    <link name="${prefix}Actuator_2">
+      <inertial>
+        <origin xyz="8.433E-05 -0.00056811 0.09029" rpy="0 0 0" />
+        <mass value="0.48411" />
+        <inertia
+          ixx="0.00044952" ixy="-5.1995E-05" ixz="-8.3234E-08"
+          iyy="0.00079703" iyz="-2.2982E-09" izz="0.00041677" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/Actuator_2.STL" />
+        </geometry>
+        <material name="wiserli_actuator_grey" />
+      </visual>
+      <collision>
+        <origin xyz="0.0009 -0.0014 0.0902" rpy="0 0 0" />
+        <geometry>
+          <box size="0.1144 0.0771 0.1074" />
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}Fixed_2" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${prefix}link_1" />
+      <child link="${prefix}Actuator_2" />
+    </joint>
+
+    <link name="${prefix}Actuator_1">
+      <!-- Fixed non-zero mass/inertia matching Actuator_V1 (identical to Actuator_2/3) -->
+      <inertial>
+        <origin xyz="0.000301 -0.000479 0.02925" rpy="0 0 0" />
+        <mass value="0.48411" />
+        <inertia
+          ixx="0.00045" ixy="0.0" ixz="0.0"
+          iyy="0.00045" iyz="0.0" izz="0.000797" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wiserli_atal_description/meshes/Actuator_1.STL" />
+        </geometry>
+        <material name="wiserli_actuator_grey" />
+      </visual>
+      <collision>
+        <origin xyz="0.000301 -0.000479 0.02925" rpy="0 0 0" />
+        <geometry>
+          <box size="0.1194 0.1190 0.0665" />
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}Fixed_1" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}Actuator_1" />
+    </joint>
+
+  </xacro:macro>
+</robot>

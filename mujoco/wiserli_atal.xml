@@ -1,0 +1,174 @@
+<mujoco model="wiserli_atal">
+  <compiler angle="radian" meshdir="assets" autolimits="true"/>
+
+  <option integrator="implicitfast" cone="elliptic" impratio="10"/>
+
+  <default>
+    <default class="wiserli_arm">
+      <joint damping="0.5" armature="0.05" frictionloss="0.1"/>
+      <position kp="120" kv="12"/>
+      <default class="arm_joint">
+        <position kp="150" kv="15" forcerange="-60 60"/>
+      </default>
+      <default class="wrist_joint">
+        <joint damping="0.3" armature="0.02" frictionloss="0.05"/>
+        <position kp="60" kv="6" forcerange="-20 20"/>
+      </default>
+      <default class="arm_visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+      </default>
+      <default class="arm_collision">
+        <geom group="3"/>
+      </default>
+    </default>
+  </default>
+
+  <asset>
+    <material name="wiserli_dark_grey" rgba="0.23 0.23 0.23 1" specular="0.3" shininess="0.4"/>
+    <material name="wiserli_red" rgba="0.67 0.019608 0.019608 1" specular="0.4" shininess="0.5"/>
+    <material name="wiserli_silver" rgba="0.89412 0.89412 0.89412 1" specular="0.6" shininess="0.7"/>
+    <material name="wiserli_actuator_grey" rgba="0.29 0.31 0.27 1" specular="0.25" shininess="0.3"/>
+
+    <mesh name="base_link" file="arm/base_link.stl"/>
+    <mesh name="link_1" file="arm/link_1.stl"/>
+    <mesh name="link_2" file="arm/link_2.stl"/>
+    <mesh name="link_3" file="arm/link_3.stl"/>
+    <mesh name="link_4" file="arm/link_4.stl"/>
+    <mesh name="link_5" file="arm/link_5.stl"/>
+    <mesh name="link_6" file="arm/link_6.stl"/>
+    <mesh name="Actuator_1" file="arm/Actuator_1.stl"/>
+    <mesh name="Actuator_2" file="arm/Actuator_2.stl"/>
+    <mesh name="Actuator_3" file="arm/Actuator_3.stl"/>
+    <mesh name="Actuator_4" file="arm/Actuator_4.stl"/>
+    <mesh name="Actuator_5" file="arm/Actuator_5.stl"/>
+    <mesh name="Actuator_6" file="arm/Actuator_6.stl"/>
+  </asset>
+
+  <worldbody>
+    <body name="base_link" pos="0 0 0" childclass="wiserli_arm">
+      <inertial pos="6.2525e-09 -4.9893e-09 0.046727" mass="0.38202"
+        fullinertia="0.00086555 0.00056436 0.0011619 0.00016344 6.6877e-11 2.546e-11"/>
+      <geom class="arm_visual" mesh="base_link" material="wiserli_dark_grey"/>
+      <geom class="arm_collision" type="mesh" mesh="base_link"/>
+
+      <body name="Actuator_1" pos="0 0 0">
+        <inertial pos="0.000301 -0.000479 0.02925" mass="0.48411"
+          diaginertia="0.00045 0.00045 0.000797"/>
+        <geom class="arm_visual" mesh="Actuator_1" material="wiserli_actuator_grey"/>
+        <geom class="arm_collision" type="box" pos="0.000301 -0.000479 0.02925" size="0.0597 0.0595 0.03325"/>
+      </body>
+
+      <body name="link_1" pos="0 0 0.0625">
+        <inertial pos="-0.0013064 0.0089242 0.060012" mass="0.19521"
+          fullinertia="0.00039384 0.00052992 0.00030594 -2.0356e-05 7.1998e-06 -4.9183e-05"/>
+        <joint name="joint_1" class="arm_joint" axis="0 0 1" range="-3.14 3.14"/>
+        <geom class="arm_visual" mesh="link_1" material="wiserli_dark_grey"/>
+        <geom class="arm_collision" type="mesh" mesh="link_1"/>
+
+        <body name="Actuator_2" pos="0 0 0">
+          <inertial pos="8.433e-05 -0.00056811 0.09029" mass="0.48411"
+            fullinertia="0.00044952 0.00079703 0.00041677 -5.1995e-05 -8.3234e-08 -2.2982e-09"/>
+          <geom class="arm_visual" mesh="Actuator_2" material="wiserli_actuator_grey"/>
+          <geom class="arm_collision" type="box" pos="0.0009 -0.0014 0.0902" size="0.0572 0.03855 0.0537"/>
+        </body>
+
+        <body name="link_2" pos="-0.0054316 0.037105 0.090291">
+          <inertial pos="0.091706 0.026058 0.11711" mass="0.76071"
+            fullinertia="0.004311 0.0069557 0.0028965 -0.00039587 -0.0031115 -0.00045575"/>
+          <joint name="joint_2" class="arm_joint" axis="0.14484 -0.98945 0" range="-3.14 3.14"/>
+          <geom class="arm_visual" mesh="link_2" material="wiserli_red"/>
+          <geom class="arm_collision" type="mesh" mesh="link_2"/>
+
+          <body name="link_3" pos="0.18646 0.027295 0.23343">
+            <inertial pos="0.02669 -0.029599 0.060776" mass="0.40502"
+              fullinertia="0.00055563 0.00067454 0.00049167 2.2508e-05 -4.2223e-05 3.3368e-05"/>
+            <joint name="joint_3" class="arm_joint" axis="0.14484 -0.98945 0" range="-3.14 3.14"/>
+            <geom class="arm_visual" mesh="link_3" material="wiserli_dark_grey"/>
+            <geom class="arm_collision" type="mesh" mesh="link_3"/>
+
+            <body name="Actuator_3" pos="-0.18645738164896 -0.0272949454265148 -0.233427999140507">
+              <inertial pos="0.19197 -0.010378 0.23343" mass="0.48411"
+                fullinertia="0.00044677 0.00079698 0.00041958 -5.2394e-05 -7.8396e-06 -1.1352e-06"/>
+              <geom class="arm_visual" mesh="Actuator_3" material="wiserli_actuator_grey"/>
+              <geom class="arm_collision" type="box" pos="0.1929 -0.0103 0.2331" size="0.06035 0.03815 0.0582"/>
+            </body>
+
+            <body name="Actuator_4" pos="0 0 0">
+              <inertial pos="0.038011 -0.032336 0.13792" mass="0.15173"
+                fullinertia="0.0001082 7.2943e-05 7.6691e-05 5.274e-06 -1.2786e-05 -1.8625e-06"/>
+              <geom class="arm_visual" mesh="Actuator_4" material="wiserli_actuator_grey"/>
+              <geom class="arm_collision" type="box" pos="0.0364 -0.0310 0.1469" size="0.0384 0.0344 0.0244"/>
+            </body>
+
+            <body name="link_4" pos="0.072651 -0.027265 0.12564">
+              <inertial pos="0.10402 0.014102 -0.036698" mass="0.27059"
+                fullinertia="0.00024731 0.00054783 0.00043218 -4.2796e-05 7.6458e-05 -1.2246e-06"/>
+              <joint name="joint_4" class="wrist_joint" axis="0.93363 0.13667 -0.33113" range="-3.14 3.14"/>
+              <geom class="arm_visual" mesh="link_4" material="wiserli_red"/>
+              <geom class="arm_collision" type="mesh" mesh="link_4"/>
+
+              <body name="Actuator_5" pos="0 0 0">
+                <inertial pos="0.19692 0.043487 -0.072361" mass="0.15173"
+                  fullinertia="7.3534e-05 0.00011166 7.2636e-05 -7.3267e-06 8.133e-07 -4.371e-06"/>
+                <geom class="arm_visual" mesh="Actuator_5" material="wiserli_actuator_grey"/>
+                <geom class="arm_collision" type="box" pos="0.1965 0.0478 -0.0718" size="0.03485 0.03385 0.0270"/>
+              </body>
+
+              <body name="link_5" pos="0.20365 0.0072222 -0.068347">
+                <inertial pos="0.036309 -0.010353 -0.061823" mass="0.18261"
+                  fullinertia="0.00022011 0.00022743 0.00017662 1.7911e-05 4.5319e-05 -2.296e-05"/>
+                <joint name="joint_5" class="wrist_joint" axis="0.18145 -0.97743 0.10817" range="-1.92 1.92"/>
+                <geom class="arm_visual" mesh="link_5" material="wiserli_red"/>
+                <geom class="arm_collision" type="mesh" mesh="link_5"/>
+
+                <body name="Actuator_6" pos="0 0 0">
+                  <inertial pos="0.036744 0.022553 -0.077449" mass="0.15173"
+                    fullinertia="8.1709e-05 7.2176e-05 0.00010395 -1.5205e-07 -1.743e-05 2.8756e-07"/>
+                  <geom class="arm_visual" mesh="Actuator_6" material="wiserli_actuator_grey"/>
+                  <geom class="arm_collision" type="box" pos="0.0369 0.0235 -0.0726" size="0.0362 0.02955 0.0364"/>
+                </body>
+
+                <body name="link_6" pos="0.054582 0.022265 -0.10998">
+                  <inertial pos="0.0059212 -9.5985e-05 -0.010799" mass="0.040761"
+                    fullinertia="9.59e-06 8.5724e-06 1.1958e-05 -1.6499e-08 -1.8563e-06 3.0092e-08"/>
+                  <joint name="joint_6" class="wrist_joint" axis="0.48075 -0.0077932 -0.87682" range="-3.14 3.14"/>
+                  <geom class="arm_visual" mesh="link_6" material="wiserli_silver"/>
+                  <geom class="arm_collision" type="mesh" mesh="link_6"/>
+
+                  <!-- ISO 50mm mounting flange frame (+Z outward along joint_6 axis) -->
+                  <body name="tool0" pos="0.012019 -0.000195 -0.021921" quat="0.03009484 0.96334483 0.10187204 0.24633944">
+                    <site name="attachment_site" pos="0 0 0" size="0.005" rgba="0.1 0.8 0.1 1" group="5"/>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <contact>
+    <exclude body1="base_link" body2="link_1"/>
+    <exclude body1="Actuator_1" body2="link_1"/>
+    <exclude body1="link_1" body2="link_2"/>
+    <exclude body1="Actuator_2" body2="link_2"/>
+    <exclude body1="link_2" body2="link_3"/>
+    <exclude body1="link_2" body2="Actuator_3"/>
+    <exclude body1="link_3" body2="link_4"/>
+    <exclude body1="Actuator_4" body2="link_4"/>
+    <exclude body1="link_4" body2="link_5"/>
+    <exclude body1="Actuator_5" body2="link_5"/>
+    <exclude body1="link_5" body2="link_6"/>
+    <exclude body1="Actuator_6" body2="link_6"/>
+  </contact>
+
+  <actuator>
+    <position name="joint_1_act" class="arm_joint" joint="joint_1" ctrlrange="-3.14 3.14"/>
+    <position name="joint_2_act" class="arm_joint" joint="joint_2" ctrlrange="-3.14 3.14"/>
+    <position name="joint_3_act" class="arm_joint" joint="joint_3" ctrlrange="-3.14 3.14"/>
+    <position name="joint_4_act" class="wrist_joint" joint="joint_4" ctrlrange="-3.14 3.14"/>
+    <position name="joint_5_act" class="wrist_joint" joint="joint_5" ctrlrange="-1.92 1.92"/>
+    <position name="joint_6_act" class="wrist_joint" joint="joint_6" ctrlrange="-3.14 3.14"/>
+  </actuator>
+</mujoco>

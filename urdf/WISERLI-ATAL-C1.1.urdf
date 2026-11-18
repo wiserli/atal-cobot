@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="WISERLI-ATAL-C1.1">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="6.2525E-09 -4.9893E-09 0.046727"
+        rpy="0 0 0" />
+      <mass
+        value="0.38202" />
+      <inertia
+        ixx="0.00086555"
+        ixy="0.00016344"
+        ixz="6.6877E-11"
+        iyy="0.00056436"
+        iyz="2.546E-11"
+        izz="0.0011619" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.23 0.23 0.23 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="link_1">
+    <inertial>
+      <origin
+        xyz="-0.0013064 0.0089242 0.060012"
+        rpy="0 0 0" />
+      <mass
+        value="0.19521" />
+      <inertia
+        ixx="0.00039384"
+        ixy="-2.0356E-05"
+        ixz="7.1998E-06"
+        iyy="0.00052992"
+        iyz="-4.9183E-05"
+        izz="0.00030594" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.23 0.23 0.23 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_1"
+    type="continuous">
+    <origin
+      xyz="0 0 0.0625"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="link_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="60"
+      velocity="20" />
+  </joint>
+  <link
+    name="link_2">
+    <inertial>
+      <origin
+        xyz="0.091706 0.026058 0.11711"
+        rpy="0 0 0" />
+      <mass
+        value="0.76071" />
+      <inertia
+        ixx="0.004311"
+        ixy="-0.00039587"
+        ixz="-0.0031115"
+        iyy="0.0069557"
+        iyz="-0.00045575"
+        izz="0.0028965" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.67 0.019608 0.019608 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_2"
+    type="continuous">
+    <origin
+      xyz="-0.0054316 0.037105 0.090291"
+      rpy="0 0 0" />
+    <parent
+      link="link_1" />
+    <child
+      link="link_2" />
+    <axis
+      xyz="0.14484 -0.98945 0" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="60"
+      velocity="20" />
+  </joint>
+  <link
+    name="link_3">
+    <inertial>
+      <origin
+        xyz="0.02669 -0.029599 0.060776"
+        rpy="0 0 0" />
+      <mass
+        value="0.40502" />
+      <inertia
+        ixx="0.00055563"
+        ixy="2.2508E-05"
+        ixz="-4.2223E-05"
+        iyy="0.00067454"
+        iyz="3.3368E-05"
+        izz="0.00049167" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.23 0.23 0.23 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_3"
+    type="continuous">
+    <origin
+      xyz="0.18646 0.027295 0.23343"
+      rpy="0 0 0" />
+    <parent
+      link="link_2" />
+    <child
+      link="link_3" />
+    <axis
+      xyz="0.14484 -0.98945 0" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="60"
+      velocity="20" />
+  </joint>
+  <link
+    name="link_4">
+    <inertial>
+      <origin
+        xyz="0.10402 0.014102 -0.036698"
+        rpy="0 0 0" />
+      <mass
+        value="0.27059" />
+      <inertia
+        ixx="0.00024731"
+        ixy="-4.2796E-05"
+        ixz="7.6458E-05"
+        iyy="0.00054783"
+        iyz="-1.2246E-06"
+        izz="0.00043218" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/link_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.67 0.019608 0.019608 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/link_4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_4"
+    type="continuous">
+    <origin
+      xyz="0.072651 -0.027265 0.12564"
+      rpy="0 0 0" />
+    <parent
+      link="link_3" />
+    <child
+      link="link_4" />
+    <axis
+      xyz="0.93363 0.13667 -0.33113" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="20"
+      velocity="20" />
+  </joint>
+  <link
+    name="link_5">
+    <inertial>
+      <origin
+        xyz="0.036309 -0.010353 -0.061823"
+        rpy="0 0 0" />
+      <mass
+        value="0.18261" />
+      <inertia
+        ixx="0.00022011"
+        ixy="1.7911E-05"
+        ixz="4.5319E-05"
+        iyy="0.00022743"
+        iyz="-2.296E-05"
+        izz="0.00017662" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/link_5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.67 0.019608 0.019608 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/link_5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_5"
+    type="continuous">
+    <origin
+      xyz="0.20365 0.0072222 -0.068347"
+      rpy="0 0 0" />
+    <parent
+      link="link_4" />
+    <child
+      link="link_5" />
+    <axis
+      xyz="0.18145 -0.97743 0.10817" />
+    <limit
+      lower="-1.92"
+      upper="1.92"
+      effort="20"
+      velocity="20" />
+  </joint>
+  <link
+    name="link_6">
+    <inertial>
+      <origin
+        xyz="0.0059212 -9.5985E-05 -0.010799"
+        rpy="0 0 0" />
+      <mass
+        value="0.040761" />
+      <inertia
+        ixx="9.59E-06"
+        ixy="-1.6499E-08"
+        ixz="-1.8563E-06"
+        iyy="8.5724E-06"
+        iyz="3.0092E-08"
+        izz="1.1958E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/link_6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89412 0.89412 0.89412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/link_6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_6"
+    type="continuous">
+    <origin
+      xyz="0.054582 0.022265 -0.10998"
+      rpy="0 0 0" />
+    <parent
+      link="link_5" />
+    <child
+      link="link_6" />
+    <axis
+      xyz="0.48075 -0.0077932 -0.87682" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="20"
+      velocity="20" />
+  </joint>
+  <link
+    name="Actuator_6">
+    <inertial>
+      <origin
+        xyz="0.036744 0.022553 -0.077449"
+        rpy="0 0 0" />
+      <mass
+        value="0.15173" />
+      <inertia
+        ixx="8.1709E-05"
+        ixy="-1.5205E-07"
+        ixz="-1.743E-05"
+        iyy="7.2176E-05"
+        iyz="2.8756E-07"
+        izz="0.00010395" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/Actuator_6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29 0.31 0.27 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/Actuator_6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Fixed_6"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link_5" />
+    <child
+      link="Actuator_6" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Actuator_5">
+    <inertial>
+      <origin
+        xyz="0.19692 0.043487 -0.072361"
+        rpy="0 0 0" />
+      <mass
+        value="0.15173" />
+      <inertia
+        ixx="7.3534E-05"
+        ixy="-7.3267E-06"
+        ixz="8.133E-07"
+        iyy="0.00011166"
+        iyz="-4.371E-06"
+        izz="7.2636E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/Actuator_5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29 0.31 0.27 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/Actuator_5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Fixed_5"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link_4" />
+    <child
+      link="Actuator_5" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Actuator_3">
+    <inertial>
+      <origin
+        xyz="0.19197 -0.010378 0.23343"
+        rpy="0 0 0" />
+      <mass
+        value="0.48411" />
+      <inertia
+        ixx="0.00044677"
+        ixy="-5.2394E-05"
+        ixz="-7.8396E-06"
+        iyy="0.00079698"
+        iyz="-1.1352E-06"
+        izz="0.00041958" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/Actuator_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29 0.31 0.27 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/Actuator_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Fixed_3"
+    type="fixed">
+    <origin
+      xyz="-0.18645738164896 -0.0272949454265148 -0.233427999140507"
+      rpy="0 0 0" />
+    <parent
+      link="link_3" />
+    <child
+      link="Actuator_3" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Actuator_4">
+    <inertial>
+      <origin
+        xyz="0.038011 -0.032336 0.13792"
+        rpy="0 0 0" />
+      <mass
+        value="0.15173" />
+      <inertia
+        ixx="0.0001082"
+        ixy="5.274E-06"
+        ixz="-1.2786E-05"
+        iyy="7.2943E-05"
+        iyz="-1.8625E-06"
+        izz="7.6691E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/Actuator_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29 0.31 0.27 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/Actuator_4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Fixed_4"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link_3" />
+    <child
+      link="Actuator_4" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Actuator_2">
+    <inertial>
+      <origin
+        xyz="8.433E-05 -0.00056811 0.09029"
+        rpy="0 0 0" />
+      <mass
+        value="0.48411" />
+      <inertia
+        ixx="0.00044952"
+        ixy="-5.1995E-05"
+        ixz="-8.3234E-08"
+        iyy="0.00079703"
+        iyz="-2.2982E-09"
+        izz="0.00041677" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/Actuator_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29 0.31 0.27 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/Actuator_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Fixed_2"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link_1" />
+    <child
+      link="Actuator_2" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Actuator_1">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/Actuator_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29 0.31 0.27 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://WISERLI-ATAL-C1.1/meshes/Actuator_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Fixed_1"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Actuator_1" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>
