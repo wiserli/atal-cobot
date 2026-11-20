@@ -1,7 +1,12 @@
-# WISERLI-ATAL-C1.1 (`wiserli_atal_description`)
+# WISERLI-ATAL-COBOTs
 
-A complete, self-contained **ROS 2 (Jazzy + Gazebo Harmonic)** and **MuJoCo (3.x)** simulation & control package for the **WISERLI-ATAL-C1.1** 6-DOF collaborative robot arm, with an integrated **Robotiq 2F-85** parallel gripper and a wrist-mounted **RGB-D camera** (Intel RealSense D435i form factor).
+A complete, self-contained **ROS 2 (Jazzy + Gazebo Harmonic)** and **MuJoCo (3.x)** simulation & control package for the **WISERLI-ATAL-C1.1** 6-DOF (other versions to be added soon) collaborative robot arm, with an integrated **Robotiq 2F-85** parallel gripper and a wrist-mounted **RGB-D camera** (Intel RealSense D435i form factor).
 
+Demo video of **WISERLI-ATAL-C1.1** 
+
+<video src="media/wiserli-atal-c1.1-demo.m4v" width="600" controls>
+  Your browser does not support the video tag.
+</video>
 ---
 
 ## Key Features
@@ -33,7 +38,7 @@ A complete, self-contained **ROS 2 (Jazzy + Gazebo Harmonic)** and **MuJoCo (3.x
 ## Repository Structure
 
 ```text
-wiserli_atal_description/
+atal_cobot/
 ├── CMakeLists.txt                  # ROS 2 ament_cmake build configuration
 ├── package.xml                     # ROS 2 package manifest (format 3)
 ├── requirements.txt                # Python dependencies for MuJoCo & GUI
@@ -97,8 +102,8 @@ sudo apt update && sudo apt install -y git-lfs
 
 # Initialize Git LFS and clone
 git lfs install
-git clone https://github.com/wiserli/atal-cobot.git wiserli_atal_description
-cd wiserli_atal_description
+git clone https://github.com/wiserli/atal-cobot.git atal_cobot
+cd atal_cobot
 ```
 
 *(If you already cloned without Git LFS, run `git lfs pull` inside the repo to download the actual 3D meshes.)*
@@ -181,7 +186,7 @@ Requires **Ubuntu 24.04 + ROS 2 Jazzy Jalisco**.
 
 ```bash
 mkdir -p ~/ros2_ws/src
-cp -r /path/to/wiserli_atal_description ~/ros2_ws/src/wiserli_atal_description
+cp -r /path/to/atal_cobot ~/ros2_ws/src/atal_cobot
 cd ~/ros2_ws
 
 # Install all ROS 2 / Gazebo Harmonic / ros2_control dependencies
@@ -189,7 +194,7 @@ source /opt/ros/jazzy/setup.bash
 rosdep install --from-paths src --ignore-src -r -y
 
 # Build and source
-colcon build --packages-select wiserli_atal_description --symlink-install
+colcon build --packages-select atal_cobot --symlink-install
 source install/setup.bash
 ```
 
@@ -197,13 +202,13 @@ source install/setup.bash
 
 ```bash
 # 1. RViz2 + interactive joint sliders (arm + synchronized gripper linkage)
-ros2 launch wiserli_atal_description display.launch.py
+ros2 launch atal_cobot display.launch.py
 
 # 2. ros2_control mock hardware + RViz2 (no Gazebo required)
-ros2 launch wiserli_atal_description control.launch.py
+ros2 launch atal_cobot control.launch.py
 
 # 3. Full Gazebo Harmonic simulation + gz_ros2_control + wrist RGB-D camera + RViz2
-ros2 launch wiserli_atal_description gazebo.launch.py
+ros2 launch atal_cobot gazebo.launch.py
 ```
 
 Useful launch arguments:
