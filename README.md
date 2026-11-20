@@ -7,7 +7,6 @@ Demo video of **WISERLI-ATAL-C1.1**
 <video src="media/wiserli-atal-c1.1-demo.m4v" width="600" controls>
   Your browser does not support the video tag.
 </video>
----
 
 ## Key Features
 
