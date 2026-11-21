@@ -130,6 +130,12 @@ def generate_launch_description():
             "joint_state_broadcaster",
             "--controller-manager",
             "/controller_manager",
+            "--controller-manager-timeout",
+            "60.0",
+            "--switch-timeout",
+            "60.0",
+            "--service-call-timeout",
+            "60.0",
         ],
         output="screen",
     )
@@ -141,6 +147,12 @@ def generate_launch_description():
             "arm_controller",
             "--controller-manager",
             "/controller_manager",
+            "--controller-manager-timeout",
+            "60.0",
+            "--switch-timeout",
+            "60.0",
+            "--service-call-timeout",
+            "60.0",
         ],
         output="screen",
     )
@@ -152,6 +164,12 @@ def generate_launch_description():
             "gripper_controller",
             "--controller-manager",
             "/controller_manager",
+            "--controller-manager-timeout",
+            "60.0",
+            "--switch-timeout",
+            "60.0",
+            "--service-call-timeout",
+            "60.0",
         ],
         output="screen",
         condition=IfCondition(LaunchConfiguration("include_gripper")),
@@ -165,11 +183,19 @@ def generate_launch_description():
         )
     )
 
-    # Start arm & gripper controllers once joint_state_broadcaster is loaded
-    spawn_controllers_after_jsb = RegisterEventHandler(
+    # Start arm controller once joint_state_broadcaster is loaded and active
+    spawn_arm_controller_after_jsb = RegisterEventHandler(
         event_handler=OnProcessExit(
             target_action=joint_state_broadcaster_spawner,
-            on_exit=[arm_controller_spawner, gripper_controller_spawner],
+            on_exit=[arm_controller_spawner],
+        )
+    )
+
+    # Start gripper controller once arm_controller is loaded and active
+    spawn_gripper_after_arm = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=arm_controller_spawner,
+            on_exit=[gripper_controller_spawner],
         )
     )
 
@@ -192,7 +218,8 @@ def generate_launch_description():
             robot_state_publisher_node,
             spawn_entity_node,
             spawn_jsb_after_entity,
-            spawn_controllers_after_jsb,
+            spawn_arm_controller_after_jsb,
+            spawn_gripper_after_arm,
             rviz_node,
         ]
     )

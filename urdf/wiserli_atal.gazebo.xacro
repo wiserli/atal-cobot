@@ -41,8 +41,8 @@
           <update_rate>30</update_rate>
           <visualize>true</visualize>
           <topic>wrist_camera</topic>
-          <gz_frame_id>${prefix}wrist_camera_optical_frame</gz_frame_id>
           <camera name="${prefix}wrist_rgbd_camera">
+            <optical_frame_id>${prefix}wrist_camera_optical_frame</optical_frame_id>
             <horizontal_fov>1.2043</horizontal_fov>
             <image>
               <width>640</width>

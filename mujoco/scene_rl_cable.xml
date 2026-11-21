@@ -1,0 +1,103 @@
+<mujoco model="wiserli_atal_rl_cable">
+  <extension>
+    <plugin plugin="mujoco.elasticity.cable"/>
+  </extension>
+
+  <include file="wiserli_atal_2f85.xml"/>
+
+  <statistic center="0.42 0 0.15" extent="1.0"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="135" elevation="-20"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+      markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+    <material name="table_wood" rgba="0.75 0.60 0.45 1" specular="0.2" shininess="0.1"/>
+    <material name="cable_orange" rgba="0.95 0.35 0.05 1" specular="0.5" shininess="0.6"/>
+    <material name="post_metal" rgba="0.25 0.25 0.28 1" specular="0.6" shininess="0.7"/>
+    <material name="plug_black" rgba="0.12 0.12 0.14 1" specular="0.4" shininess="0.5"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 1.8" dir="0 0 -1" directional="true"/>
+    <geom name="floor" pos="0 0 -0.40" size="0 0 0.05" type="plane" material="groundplane"/>
+
+    <!-- Pedestal stand elevating the cobot base 40cm above floor -->
+    <geom name="pedestal" type="cylinder" pos="0 0 -0.20" size="0.10 0.20" rgba="0.22 0.22 0.24 1"/>
+    <geom name="pedestal_base" type="cylinder" pos="0 0 -0.38" size="0.22 0.02" rgba="0.16 0.16 0.18 1"/>
+
+    <!-- Work Table in front of the robot (tabletop surface exactly at Z=0.0) -->
+    <body name="work_table" pos="0.44 0 -0.20">
+      <geom name="tabletop" type="box" size="0.24 0.38 0.20" material="table_wood"
+        friction="1.2 0.005 0.0001"/>
+    </body>
+
+    <!-- Cable Anchor Post: firmly on tabletop, inside the robot reach zone -->
+    <body name="cable_anchor" pos="0.32 0.0 0.025">
+      <geom name="post_geom" type="cylinder" size="0.016 0.025" material="post_metal"/>
+      <!-- Deformable Elastic Cable extending along +X across the table toward the center -->
+      <composite prefix="wire:" type="cable" offset="0 0 0.01" curve="s 0 0" count="12 1 1" size="0.20 0 0">
+        <plugin plugin="mujoco.elasticity.cable">
+          <!-- SI units: Pa (flexible silicone/rubber cable) -->
+          <config key="twist" value="3e5"/>
+          <config key="bend" value="1e5"/>
+          <config key="vmax" value="0.05"/>
+        </plugin>
+        <joint kind="main" damping="0.12"/>
+        <geom type="capsule" size="0.009" material="cable_orange" condim="4" priority="1"
+          friction="0.8 0.01 0.001" solimp="0.95 0.99 0.001" solref="0.004 1"/>
+      </composite>
+    </body>
+
+    <!-- Graspable Cable Connector Plug at the free end of the wire -->
+    <body name="cable_plug" pos="0.52 0.0 0.035">
+      <freejoint name="plug_joint"/>
+      <geom name="plug_geom" type="box" size="0.0175 0.0175 0.0175" material="plug_black"
+        friction="0.8 0.01 0.001" solimp="0.95 0.99 0.001" solref="0.004 1"/>
+      <site name="plug_site" type="sphere" size="0.006" rgba="0.1 0.8 0.9 1"/>
+    </body>
+
+    <!-- Routing Guide Fixture Post on the table -->
+    <body name="route_fixture" pos="0.42 0.06 0.025">
+      <geom name="guide_post" type="cylinder" size="0.012 0.025" material="post_metal" friction="0.05 0.001 0.0001"/>
+    </body>
+
+    <!-- Target Goal Marker for Cable Plug (mocap body on table) -->
+    <body name="cable_goal" pos="0.38 0.12 0.035" mocap="true">
+      <geom name="goal_marker" type="sphere" size="0.025" contype="0" conaffinity="0" rgba="0.1 0.9 0.2 0.6"/>
+      <site name="goal_site" type="sphere" size="0.008" rgba="0.1 1.0 0.2 1"/>
+    </body>
+  </worldbody>
+
+  <equality>
+    <!-- Weld the rigid connector plug to the last deformable segment of the cable -->
+    <weld name="cable_plug_weld" body1="cable_plug" body2="wire:B_last"/>
+  </equality>
+
+  <sensor>
+    <!-- 6-Axis Wrist Force/Torque Sensor at tool0 attachment_site -->
+    <force name="wrist_force" site="attachment_site" cutoff="50"/>
+    <torque name="wrist_torque" site="attachment_site" cutoff="10"/>
+  </sensor>
+
+  <keyframe>
+    <!-- Initial arm hover pose pointing toward the cable workspace -->
+    <key name="home"
+      qpos="0.0 -0.3 0.6 -0.3 0.0 0.0  0 0 0 0 0 0 0 0  1 0 0 0  1 0 0 0  1 0 0 0  1 0 0 0  1 0 0 0  1 0 0 0  1 0 0 0  1 0 0 0  1 0 0 0  1 0 0 0  1 0 0 0  0.52 0.0 0.035 1 0 0 0"
+      ctrl="0.0 -0.3 0.6 -0.3 0.0 0.0  0"/>
+  </keyframe>
+
+  <contact>
+    <exclude body1="cable_anchor" body2="wire:B_first"/>
+    <exclude body1="cable_anchor" body2="wire:B_1"/>
+    <exclude body1="cable_plug" body2="wire:B_last"/>
+    <exclude body1="cable_plug" body2="wire:B_9"/>
+  </contact>
+</mujoco>
+
